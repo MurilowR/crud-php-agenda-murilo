@@ -1,74 +1,57 @@
 <?php
 
-require_once "config.php";
+$pdo = require 'config/database.php';
 
-include "cabecalho.php";
+require 'models/ContatoModel.php';
 
-include_once "funcoes.php";
+require 'models/ClienteModel.php';
 
-$busca = $_GET['busca'] ?? '';
+require 'models/ProdutoModel.php';
 
-$pagina = (int) ($_GET['pagina'] ?? 1);
+include 'views/cabecalho.php';
 
-$contatos = obterContatos(
-    $pdo,
-    $busca,
-    $pagina
-);
+$pagina = $_GET['pagina'] ?? 'contatos';
 
-$total = contarContatos(
-    $pdo,
-    $busca
-);
 
-$totalPaginas = ceil($total / 10);
 
-?>
 
-<h1>Contatos</h1>
 
-<p>
+if($pagina == 'contatos'){
 
-    <a href="cadastro_contato.php">
-        Novo Contato
-    </a>
+    $contatos =
+    ContatoModel::findAll($pdo);
 
-</p>
+    include
+    'views/contatos/lista.php';
+}
 
-<form method="GET">
 
-    <input
-        type="text"
-        name="busca"
-        placeholder="Buscar..."
-        value="<?= htmlspecialchars($busca) ?>"
-    >
 
-    <button type="submit">
-        Buscar
-    </button>
 
-</form>
 
-<br>
+elseif($pagina == 'clientes'){
 
-<?php
+    $clientes =
+    ClienteModel::findAll($pdo);
 
-exibirTabelaContatos($contatos);
+    include
+    'views/clientes/lista.php';
+}
+
+
+
+
+
+elseif($pagina == 'produtos'){
+
+    $produtos =
+    ProdutoModel::findAll($pdo);
+
+    include
+    'views/produtos/lista.php';
+}
 
 ?>
-
-<br>
-
-<?php for($i = 1; $i <= $totalPaginas; $i++): ?>
-
-    <a href="?pagina=<?= $i ?>&busca=<?= urlencode($busca) ?>">
-
-        <?= $i ?>
-
-    </a>
-
-<?php endfor; ?>
 
 </body>
 </html>
