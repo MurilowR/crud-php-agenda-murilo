@@ -1,5 +1,13 @@
 <h1>Produtos</h1>
 
+<a href="index.php?pagina=novo_produto">
+
+Novo Produto
+
+</a>
+
+<br><br>
+
 <table>
 
 <tr>
@@ -8,6 +16,8 @@
 <th>Nome</th>
 <th>Preço</th>
 <th>Estoque</th>
+<th>Imagem</th>
+<th>Excluir</th>
 
 </tr>
 
@@ -32,6 +42,29 @@ R$
 </td>
 
 <td><?= $produto['estoque'] ?></td>
+
+<td>
+
+<?php if(!empty($produto['imagem'])): ?>
+
+<img
+    src="uploads/<?= $produto['imagem'] ?>"
+    width="100"
+>
+
+<?php endif; ?>
+
+</td>
+
+<td>
+
+<a href="index.php?pagina=excluir_produto&id=<?= $produto['id'] ?>">
+
+Excluir
+
+</a>
+
+</td>
 
 </tr>
 
