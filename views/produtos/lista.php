@@ -17,6 +17,7 @@
     <th>Preço</th>
     <th>Estoque</th>
     <th>Imagem</th>
+    <th>Editar</th>
     <th>Excluir</th>
 
     </tr>
@@ -55,6 +56,16 @@
     <?php endif; ?>
 
     </td>
+
+        <td>
+
+<a href="index.php?pagina=editar_produto&id=<?= $produto['id'] ?>">
+
+Editar
+
+</a>
+
+</td>
 
     <td>
 

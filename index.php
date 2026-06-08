@@ -59,7 +59,37 @@ elseif($pagina == 'novo_contato'){
 }
 
 
+elseif($pagina == 'editar_contato'){
 
+    $id = $_GET['id'];
+
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+        $contato = new Contato();
+
+        $contato->setId($id);
+        $contato->setNome($_POST['nome']);
+        $contato->setEmail($_POST['email']);
+        $contato->setTelefone($_POST['telefone']);
+
+        ContatoModel::update(
+            $pdo,
+            $contato
+        );
+
+        header('Location:index.php');
+
+        exit;
+    }
+
+    $contato = ContatoModel::findById(
+        $pdo,
+        $id
+    );
+
+    include
+    'views/contatos/editar.php';
+}
 
 
 elseif($pagina == 'excluir_contato'){
@@ -243,7 +273,39 @@ elseif($pagina == 'novo_produto'){
     'views/produtos/form.php';
 }
 
+elseif($pagina == 'editar_produto'){
 
+    $id = $_GET['id'];
+
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+        $produto = new Produto();
+
+        $produto->setId($id);
+        $produto->setNome($_POST['nome']);
+        $produto->setPreco($_POST['preco']);
+        $produto->setEstoque($_POST['estoque']);
+
+        ProdutoModel::update(
+            $pdo,
+            $produto
+        );
+
+        header(
+            'Location:index.php?pagina=produtos'
+        );
+
+        exit;
+    }
+
+    $produto = ProdutoModel::findById(
+        $pdo,
+        $id
+    );
+
+    include
+    'views/produtos/editar.php';
+}
 
 
 elseif($pagina == 'excluir_produto'){

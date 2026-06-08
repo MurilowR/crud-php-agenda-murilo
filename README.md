@@ -1,25 +1,46 @@
-# CRUD PHP PDO
+Sistema CRUD em PHP
+Descrição
 
-Projeto CRUD simples usando:
+Projeto desenvolvido em PHP utilizando Programação Orientada a Objetos (POO), PDO e MySQL.
 
-- PHP
-- PDO
-- MySQL
-- HTML
+O sistema permite o gerenciamento de Contatos, Clientes e Produtos através das operações básicas de CRUD (Create, Read, Update e Delete).
 
-## Estrutura
+Tecnologias Utilizadas
+PHP
+MySQL
+PDO
+HTML
+CSS
+XAMPP
+Funcionalidades
+Contatos
+Cadastrar contato
+Listar contatos
+Editar contato
+Excluir contato
+Clientes
+Cadastrar cliente
+Listar clientes
+Editar cliente
+Excluir cliente
+Produtos
+Cadastrar produto
+Listar produtos
+Editar produto
+Excluir produto
+Upload de imagens
 
-- config → conexão banco
-- models → queries SQL
-- views → HTML
-- uploads → imagens
+Conceitos Aplicados
+Programação Orientada a Objetos
+Encapsulamento
+Classes e Objetos
+PDO
+CRUD
+Separação em Camadas
+Organização em Models e Views
 
-## Como executar
+Autor
 
-1. Coloque na pasta htdocs do XAMPP
+Murilo Rossi
 
-2. Ligue Apache e MySQL
-
-3. Acesse:
-
-http://localhost/projeto
+Projeto desenvolvido para fins educacionais na disciplina de Desenvolvimento de Sistemas.

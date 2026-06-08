@@ -35,6 +35,48 @@ class ProdutoModel {
         ]);
     }
 
+            public static function findById(
+        PDO $pdo,
+        int $id
+    ){
+
+        $stmt = $pdo->prepare(
+            'SELECT * FROM produtos WHERE id=?'
+        );
+
+        $stmt->execute([$id]);
+
+        return $stmt->fetch();
+    }
+
+    public static function update(
+        PDO $pdo,
+        Produto $produto
+    ){
+
+        $stmt = $pdo->prepare(
+
+            'UPDATE produtos
+
+            SET
+            nome=?,
+            preco=?,
+            estoque=?,
+            imagem=?
+            WHERE id=?'
+
+        );
+
+        return $stmt->execute([
+
+            $produto->getNome(),
+            $produto->getPreco(),
+            $produto->getEstoque(),
+            $produto->getImagem(),
+            $produto->getId()
+        ]);
+    }
+
     public static function delete(
         PDO $pdo,
         int $id

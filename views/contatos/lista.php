@@ -14,6 +14,7 @@ Novo Contato
 <th>Nome</th>
 <th>Email</th>
 <th>Telefone</th>
+<th>Editar</th>
 <th>Excluir</th>
 
 </tr>
@@ -31,13 +32,15 @@ Novo Contato
 <td><?= $contato['telefone'] ?></td>
 
 <td>
+    <a href="index.php?pagina=editar_contato&id=<?= $contato['id'] ?>">
+        Editar
+    </a>
+</td>
 
-<a href="index.php?pagina=excluir_contato&id=<?= $contato['id'] ?>">
-
-Excluir
-
-</a>
-
+<td>
+    <a href="index.php?pagina=excluir_contato&id=<?= $contato['id'] ?>">
+        Excluir
+    </a>
 </td>
 
 </tr>
