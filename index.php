@@ -10,6 +10,12 @@ require 'models/ProdutoModel.php';
 
 include 'views/cabecalho.php';
 
+require 'models/Cliente.php';
+
+require 'models/Contato.php';
+
+require 'models/Produto.php';
+
 $pagina = $_GET['pagina'] ?? 'contatos';
 
 
@@ -37,26 +43,19 @@ elseif($pagina == 'novo_contato'){
 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-        ContatoModel::create($pdo, [
+        $contato = new Contato();
 
-            'nome' =>
-            $_POST['nome'],
+        $contato->setNome($_POST['nome']);
+        $contato->setEmail($_POST['email']);
+        $contato->setTelefone($_POST['telefone']);
 
-            'email' =>
-            $_POST['email'],
-
-            'telefone' =>
-            $_POST['telefone']
-
-        ]);
+        ContatoModel::create($pdo, $contato);
 
         header('Location:index.php');
-
         exit;
     }
 
-    include
-    'views/contatos/form.php';
+    include 'views/contatos/form.php';
 }
 
 
@@ -99,18 +98,42 @@ elseif($pagina == 'novo_cliente'){
 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-        ClienteModel::create($pdo, [
+        $cliente = new Cliente();
 
-            'nome' =>
-            $_POST['nome'],
+        $cliente->setNome($_POST['nome']);
+        $cliente->setCpf($_POST['cpf']);
+        $cliente->setEmail($_POST['email']);
+        $cliente->setTelefone($_POST['telefone']);
+        $cliente->setEndereco($_POST['endereco']);
 
-            'cpf' =>
-            $_POST['cpf'],
+        ClienteModel::create($pdo, $cliente);
 
-            'email' =>
-            $_POST['email']
+        header('Location:index.php?pagina=clientes');
+        exit;
+    }
 
-        ]);
+    include 'views/clientes/form.php';
+}
+
+elseif($pagina == 'editar_cliente'){
+
+    $id = $_GET['id'];
+
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+        $cliente = new Cliente();
+
+        $cliente->setId($id);
+        $cliente->setNome($_POST['nome']);
+        $cliente->setCpf($_POST['cpf']);
+        $cliente->setEmail($_POST['email']);
+        $cliente->setTelefone($_POST['telefone']);
+        $cliente->setEndereco($_POST['endereco']);
+
+        ClienteModel::update(
+            $pdo,
+            $cliente
+        );
 
         header(
             'Location:index.php?pagina=clientes'
@@ -119,11 +142,14 @@ elseif($pagina == 'novo_cliente'){
         exit;
     }
 
+    $cliente = ClienteModel::findById(
+        $pdo,
+        $id
+    );
+
     include
-    'views/clientes/form.php';
+    'views/clientes/editar.php';
 }
-
-
 
 
 
@@ -197,21 +223,14 @@ elseif($pagina == 'novo_produto'){
 
 
 
-        ProdutoModel::create($pdo, [
+        $produto = new Produto();
 
-            'nome' =>
-            $_POST['nome'],
+        $produto->setNome($_POST['nome']);
+        $produto->setPreco($_POST['preco']);
+        $produto->setEstoque($_POST['estoque']);
+        $produto->setImagem($nomeImagem);
 
-            'preco' =>
-            $_POST['preco'],
-
-            'estoque' =>
-            $_POST['estoque'],
-
-            'imagem' =>
-            $nomeImagem
-
-        ]);
+        ProdutoModel::create($pdo, $produto);
 
         header(
             'Location:index.php?pagina=produtos'

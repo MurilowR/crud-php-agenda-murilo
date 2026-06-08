@@ -5,10 +5,7 @@ class ClienteModel {
     public static function findAll(PDO $pdo){
 
         $stmt = $pdo->query(
-
-            'SELECT * FROM clientes
-             ORDER BY nome'
-
+            'SELECT * FROM clientes ORDER BY nome'
         );
 
         return $stmt->fetchAll();
@@ -16,23 +13,73 @@ class ClienteModel {
 
     public static function create(
         PDO $pdo,
-        array $dados
+        Cliente $cliente
     ){
 
         $stmt = $pdo->prepare(
 
             'INSERT INTO clientes
-            (nome, cpf, email)
+            (nome, cpf, email, telefone, endereco)
 
-            VALUES (?, ?, ?)'
+            VALUES (?, ?, ?, ?, ?)'
 
         );
 
         return $stmt->execute([
 
-            $dados['nome'],
-            $dados['cpf'],
-            $dados['email']
+            $cliente->getNome(),
+            $cliente->getCpf(),
+            $cliente->getEmail(),
+            $cliente->getTelefone(),
+            $cliente->getEndereco()
+
+]);
+
+
+    }
+
+        public static function findById(
+        PDO $pdo,
+        int $id
+    ){
+
+        $stmt = $pdo->prepare(
+            'SELECT * FROM clientes WHERE id=?'
+        );
+
+        $stmt->execute([$id]);
+
+        return $stmt->fetch();
+    }
+
+    public static function update(
+        PDO $pdo,
+        Cliente $cliente
+    ){
+
+        $stmt = $pdo->prepare(
+
+            'UPDATE clientes
+
+            SET
+            nome=?,
+            cpf=?,
+            email=?,
+            telefone=?,
+            endereco=?
+
+            WHERE id=?'
+
+        );
+
+        return $stmt->execute([
+
+            $cliente->getNome(),
+            $cliente->getCpf(),
+            $cliente->getEmail(),
+            $cliente->getTelefone(),
+            $cliente->getEndereco(),
+            $cliente->getId()
 
         ]);
     }
@@ -43,10 +90,7 @@ class ClienteModel {
     ){
 
         $stmt = $pdo->prepare(
-
-            'DELETE FROM clientes
-             WHERE id=?'
-
+            'DELETE FROM clientes WHERE id=?'
         );
 
         return $stmt->execute([$id]);

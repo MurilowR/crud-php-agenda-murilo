@@ -1,73 +1,73 @@
-<h1>Produtos</h1>
+    <h1>Produtos</h1>
 
-<a href="index.php?pagina=novo_produto">
+    <a href="index.php?pagina=novo_produto">
 
-Novo Produto
+    Novo Produto
 
-</a>
+    </a>
 
-<br><br>
+    <br><br>
 
-<table>
+    <table>
 
-<tr>
+    <tr>
 
-<th>ID</th>
-<th>Nome</th>
-<th>Preço</th>
-<th>Estoque</th>
-<th>Imagem</th>
-<th>Excluir</th>
+    <th>ID</th>
+    <th>Nome</th>
+    <th>Preço</th>
+    <th>Estoque</th>
+    <th>Imagem</th>
+    <th>Excluir</th>
 
-</tr>
+    </tr>
 
-<?php foreach($produtos as $produto): ?>
+    <?php foreach($produtos as $produto): ?>
 
-<tr>
+    <tr>
 
-<td><?= $produto['id'] ?></td>
+    <td><?= $produto['id'] ?></td>
 
-<td><?= $produto['nome'] ?></td>
+    <td><?= $produto['nome'] ?></td>
 
-<td>
+    <td>
 
-R$
-<?= number_format(
-    $produto['preco'],
-    2,
-    ',',
-    '.'
-) ?>
+    R$
+    <?= number_format(
+        $produto['preco'],
+        2,
+        ',',
+        '.'
+    ) ?>
 
-</td>
+    </td>
 
-<td><?= $produto['estoque'] ?></td>
+    <td><?= $produto['estoque'] ?></td>
 
-<td>
+    <td>
 
-<?php if(!empty($produto['imagem'])): ?>
+    <?php if(!empty($produto['imagem'])): ?>
 
-<img
-    src="uploads/<?= $produto['imagem'] ?>"
-    width="100"
->
+    <img
+        src="uploads/<?= $produto['imagem'] ?>"
+        width="100"
+    >
 
-<?php endif; ?>
+    <?php endif; ?>
 
-</td>
+    </td>
 
-<td>
+    <td>
 
-<a href="index.php?pagina=excluir_produto&id=<?= $produto['id'] ?>">
+    <a href="index.php?pagina=excluir_produto&id=<?= $produto['id'] ?>">
 
-Excluir
+    Excluir
 
-</a>
+    </a>
 
-</td>
+    </td>
 
-</tr>
+    </tr>
 
-<?php endforeach; ?>
+    <?php endforeach; ?>
 
-</table>
+    </table>

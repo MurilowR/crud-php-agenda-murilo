@@ -5,10 +5,7 @@ class ProdutoModel {
     public static function findAll(PDO $pdo){
 
         $stmt = $pdo->query(
-
-            'SELECT * FROM produtos
-             ORDER BY nome'
-
+            'SELECT * FROM produtos ORDER BY nome'
         );
 
         return $stmt->fetchAll();
@@ -16,7 +13,7 @@ class ProdutoModel {
 
     public static function create(
         PDO $pdo,
-        array $dados
+        Produto $produto
     ){
 
         $stmt = $pdo->prepare(
@@ -30,10 +27,10 @@ class ProdutoModel {
 
         return $stmt->execute([
 
-            $dados['nome'],
-            $dados['preco'],
-            $dados['estoque'],
-            $dados['imagem']
+            $produto->getNome(),
+            $produto->getPreco(),
+            $produto->getEstoque(),
+            $produto->getImagem()
 
         ]);
     }
@@ -44,10 +41,7 @@ class ProdutoModel {
     ){
 
         $stmt = $pdo->prepare(
-
-            'DELETE FROM produtos
-             WHERE id=?'
-
+            'DELETE FROM produtos WHERE id=?'
         );
 
         return $stmt->execute([$id]);
